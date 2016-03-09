@@ -11,18 +11,43 @@
 	<ul id="results"></ul>
 
 <script type="text/javascript">
-	function assert(value, desc){
+(function() {
+	var results;
+	this.assert = function assert(value, desc){
 		var li = document.createElement("li");
 		li.className = value ? "pass" : "fail";
 		li.appendChild(document.createTextNode(desc));
-		document.getElementById("results").appendChild(li);
-	}
-
-	window.onload = function() {
-		assert(true, "The test cuite is running");
-		assert(false, "Fail");
+		results.appendChild(li);
+		if (!value) {
+			li.parentNode.parentNode.className = "fail";
+		}
+		return li;
 	};
-</script>
+	this.test = function test(name, fn){
+		results = document.getElementById("results");
+		results = assert(true, name).appendChild(document.createElement("ul"));
+		fn();
+	};
+})();
 
+window.onload = function() {
+	test("A test.", function(){
+		assert(true, "First asssertion completed");
+		assert(true, "Second asssertion completed");
+		assert(true, "Third asssertion completed");
+	});
+	
+	test("Another test.", function(){
+		assert(true, "First asssertion completed");
+		assert(false, "Second asssertion completed");
+		assert(true, "Third asssertion completed");
+	});
+
+	test("A third test.", function(){
+		assert(null, "fail");
+		assert(5, "pass");
+	});
+};
+</script>
 </body>
 </html>
