@@ -1,4 +1,4 @@
-window.onload = function () {
+(function () {
     function isPrime(value) {
         if (!isPrime.answers) isPrime.answers = {};
 
@@ -20,5 +20,4 @@ window.onload = function () {
         assert(isPrime(5), "5는 소수다!");
         assert(isPrime.answers[5], "캐시된 응답이 반환된다.");
     });
-
-};
+}());
