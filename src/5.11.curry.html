@@ -1,0 +1,20 @@
+<script src="assert.js"></script>
+<script>
+    Function.prototype.curry = function() {
+        var fn = this;
+        var args = Array.prototype.slice.call(arguments);
+        return function() {
+            debugger;
+            return fn.apply(this, args.concat(Array.prototype.slice.call(arguments)));
+        };
+    };
+
+    var fn = function(a, b, c){
+        for(var i = 0; i < arguments.length; i++) {
+            console.log(arguments[i]);
+        }
+    };
+
+    fn.curry(1, 2, 3)(4,5);
+
+</script>
